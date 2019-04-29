@@ -1,0 +1,43 @@
+<div *ngIf="orders">
+<span *ngIf="dateStart">
+  Date range start: {{dateStart | date : 'shortDate'}} 
+</span>
+<span *ngIf="dateEnd">
+  Date range end: {{dateEnd | date : 'shortDate'}} 
+</span>
+  
+<span *ngIf="dateStart && dateEnd">
+  - amounts to {{dateDiff()}} full day(s) 
+</span>
+
+ <span *ngIf="!isNaN(totalPrice())">- Total amount to invoice: {{totalPrice()}}</span>
+ <span> - {{orders.length}} orders</span>
+  <table class="table">
+    <thead>
+        <tr>
+            <td>Recipient</td>
+            <td>Email</td>
+            <td>Total price</td>
+            <td>Order date</td>
+            <td>Delivery details</td>
+            <td>Items in this order</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders; index as i">
+            <td>{{order.recipient.name}}</td>
+            <td>{{order.recipient.email}}</td>
+            <td>{{totalPriceItem(i)}}</td>
+            <td>{{order.created_at| date : 'shortDate'}}</td>
+            <td>{{order.delivery.courier+' '+ order.delivery.method}}</td>
+            <td>
+                <ul>
+                    <li *ngFor="let item of order.items">{{item.name}}</li>
+                  </ul>
+           
+            </td>
+        </tr>
+    </tbody>
+  </table> 
+</div>
+  <a routerLink=""><button> Back to selection form</button></a>

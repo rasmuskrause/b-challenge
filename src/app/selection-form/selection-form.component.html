@@ -1,0 +1,18 @@
+<form #f="ngForm" (ngSubmit)="onSubmitTemplateBased()">
+  <span>Select customer:</span>
+  <select (change)="selectItem($event.target.value)" [(ngModel)]="customerID" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let customer of customers" value={{customer.id}}>{{customer.name}}</option>
+  </select>
+  <span>Select start date:</span>
+  
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="addEvent('startTime', $event)" [(ngModel)]="dateStart" [ngModelOptions]="{standalone: true}">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+
+  <span>Select end date:</span>
+  <input matInput [matDatepicker]="picker2" placeholder="Choose a date" (dateChange)="addEvent('endTime', $event)" [(ngModel)]="dateEnd" [ngModelOptions]="{standalone: true}">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+
+  <button type="submit">Submit</button>
+</form>
